@@ -33,7 +33,7 @@
 </div>
 
 <div class="title-container">
-    <div class="app-title">{{ __('Expedientes') }}</div>
+    <div class="app-title center-align">{{ __('Expedientes') }}</div>
 </div>
 
 @isset($judicials)
@@ -46,6 +46,9 @@
                 <p><strong>Actor:</strong> {{ $judicial->actor }}</p>
                 <p><strong>Juzgado:</strong> {{ $judicial->court }}</p>
                 <p><strong>Materia:</strong> {{ $judicial->type->name }}</p>
+            </div>
+            <div class="card-action">
+                <a href="#">Ver detalles</a>
             </div>
         </div>
     </div>
