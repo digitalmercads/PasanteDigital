@@ -1,0 +1,40 @@
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+.app-title{
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 300;
+    margin: 20px 0 16px 0;
+}
+
+.title-container{
+    padding: 0 .75rem
+}
+
+.title-brand{
+    border-left: 3px solid #2A9BD2;
+    padding-left: 7px;
+}
+
+.date-span{
+    font-size:small;
+}
+
+.image-round{
+    border-radius: 50%;
+}
+
+.login-card{
+    max-width: 350px;
+    margin: auto;
+}
+
+.row {
+    margin-bottom: 16px !important;
+}
+
+.btn-width{
+    width: 100%;
+}
