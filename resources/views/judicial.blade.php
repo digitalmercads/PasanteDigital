@@ -39,16 +39,22 @@
 @isset($judicials)
 <div class="row">
     @foreach ($judicials as $judicial)
-    <div class="col s12 m3">
+    <div class="col s12 m4">
         <div class="card">
             <div class="card-content">
-                <span class="card-title"><strong>Nº de Exp:</strong> {{ $judicial->name }}</span>
-                <p><strong>Actor:</strong> {{ $judicial->actor }}</p>
-                <p><strong>Juzgado:</strong> {{ $judicial->court }}</p>
-                <p><strong>Materia:</strong> {{ $judicial->type->name }}</p>
+                <span class="card-title"><strong>Nº de Exp: {{ $judicial->judicial->name }}</strong></span>
+                <p><strong>Actor:</strong> {{ $judicial->judicial->actor }}</p>
+                <p><strong>Juzgado:</strong> {{ $judicial->judicial->court }}</p>
+                <p><strong>Materia:</strong> {{$judicial->judicial->type->name}}</p>
+                @empty($judicial->agent)
+                <p><strong>Agente:</strong> Sin Asignar</p>
+                @endempty
+                @isset($judicial->agent)
+                <p><strong>Agente:</strong> {{$judicial->agent->name}}</p>
+                @endisset
             </div>
             <div class="card-action">
-                <a href="#">Ver detalles</a>
+                <a href="{{ route('judicial') }}/{{ $judicial->judicial->id }}">Ver detalles</a>
             </div>
         </div>
     </div>

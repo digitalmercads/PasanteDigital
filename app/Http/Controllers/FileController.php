@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
+use App\Role;
+
 class FileController extends Controller
 {
     /**
@@ -22,8 +24,14 @@ class FileController extends Controller
     public function index(Request $request)
     {
         $request->user()->authorizeRoles(['admin', 'agent']);
+        $data = Role::with('users')->get();
+        $users = $data[2]->users;
 
-        return view('upload');
+        return view('upload', compact('users'));
+    }
+
+    public function details(){
+        
     }
 
     /**

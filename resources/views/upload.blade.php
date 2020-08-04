@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-    <form action="{{ route('upload_file') }}" method="post" enctype="multipart/form-data" class="col s12">
+    <form action="{{ route('add_files') }}" method="post" enctype="multipart/form-data" class="col s12">
         <div class="row">
             <div class="col s12">
                 <div class="app-title">{{ __('Subir Archivos') }}</div>
@@ -30,10 +30,10 @@
         <div class="row">
             <div class="input-field col s12">
                 <select>
-                    <option value="" disabled selected>Seleccionar</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                    <option value="" disabled selected>Seleccionar usuario</option>
+                    @foreach ($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
                 </select>
                 <label>Usuario</label>
             </div>

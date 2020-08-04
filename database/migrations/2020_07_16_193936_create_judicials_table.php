@@ -15,8 +15,6 @@ class CreateJudicialsTable extends Migration
     {
         Schema::create('judicials', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('author');
-            $table->bigInteger('agent');
             $table->string('name');
             $table->string('actor');
             $table->string('court');

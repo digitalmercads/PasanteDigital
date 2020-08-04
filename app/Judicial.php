@@ -10,4 +10,5 @@ class Judicial extends Model
     {
         return $this->belongsTo('App\JudicialType', 'type_id');
     }
+
 }

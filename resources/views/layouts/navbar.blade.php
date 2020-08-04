@@ -10,10 +10,10 @@
                 <ul class="right hide-on-med-and-down">
                     @auth
                     @if(Auth::user()->hasRole('admin'))
-                    <li><a href="sass.html">Permisos</a></li>
+                    <li><a href="{{ route('profiles') }}">Permisos</a></li>
                     @endif
                     @if(Auth::user()->hasRole('admin')||Auth::user()->hasRole('agent'))
-                    <li><a href="{{ route('add_files') }}">Agregar Archivos</a></li>
+                    <li><a href="{{ route('upload_file') }}">Agregar Archivos</a></li>
                     @endif
                     @if(Auth::user()->hasRole('user'))
                     <li><a href="{{ route('judicial') }}">Expedientes</a></li>
@@ -56,10 +56,10 @@
         </div>
     </li>
     @if(Auth::user()->hasRole('admin'))
-    <li><a href="#!"><i class="material-icons">how_to_reg</i>Permisos</a></li>
+    <li><a href="{{ route('profiles') }}"><i class="material-icons">how_to_reg</i>Permisos</a></li>
     @endif
     @if(Auth::user()->hasRole('admin')||Auth::user()->hasRole('agent'))
-    <li><a href="{{ route('add_files') }}"><i class="material-icons">cloud_upload</i>Subir Archivos</a></li>
+    <li><a href="{{ route('upload_file') }}"><i class="material-icons">cloud_upload</i>Subir Archivos</a></li>
     @endif
     @if(Auth::user()->hasRole('user'))
     <li><a href="{{ route('judicial') }}"><i class="material-icons">folder</i>Expedientes</a></li>

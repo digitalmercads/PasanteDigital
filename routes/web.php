@@ -19,9 +19,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/add-file', 'FileController@index')->name('add_files');
+Route::get('/profiles', 'ProfileController@index')->name('profiles');
+Route::get('/upload', 'FileController@index')->name('upload_file');
 Route::get('/judicial', 'JudicialController@index')->name('judicial');
+Route::get('/judicial/{id}', 'JudicialController@showfiles')->middleware('property')->name('judicial_files');
 
-Route::post('/upload', 'FileController@store')->name('upload_file');
+Route::post('/add-file', 'FileController@store')->name('add_files');
 Route::post('/add-judicial', 'JudicialController@store')->name('add_judicial');

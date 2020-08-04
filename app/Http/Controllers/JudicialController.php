@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\JudicialType;
 use App\Judicial;
+use App\JudicialRelation;
 
 class JudicialController extends Controller
 {
@@ -20,7 +21,11 @@ class JudicialController extends Controller
         $request->user()->authorizeRoles(['user', 'admin']);
 
         $judicialTypes = JudicialType::all();
-        $judicials = Judicial::where('author', $request->user()->id)->with('type')->get();
+        $judicials = JudicialRelation::where('user_id', $request->user()->id)->with(
+            'judicial',
+            'user',
+            'agent'
+        )->get();
 
         return view('judicial', compact(
             'judicialTypes',
@@ -32,7 +37,7 @@ class JudicialController extends Controller
 
         $request->user()->authorizeRoles(['user', 'admin']);
         $idusuario = $request->user()->id;
-        
+
 		$validator = Validator::make(
 			$request->all(),
 			[
@@ -57,19 +62,32 @@ class JudicialController extends Controller
             ->withInput()
             ->with('status','fail');
         }
-        
-        $judicialRequest = new Judicial;
+
+        $judicialRequest = new Judicial();
 
         $judicialRequest->name = $request->name;
-        $judicialRequest->agent = 0;
-		$judicialRequest->author = $idusuario;
 		$judicialRequest->actor = $request->actor;
 		$judicialRequest->court = $request->court;
 		$judicialRequest->type_id = $request->type;
 		$judicialRequest->status = 0;
 
         $judicialRequest->save();
-        		
+
+        $idJudicial = $judicialRequest->id;
+
+        $judicialRelation = new JudicialRelation();
+
+        $judicialRelation->judicial_id = $idJudicial;
+        $judicialRelation->user_id = $idusuario;
+
+        $judicialRelation->save();
+
 		return redirect()->route('judicial')->with('status','success');
+    }
+
+    public function showfiles(Request $request){
+        $request->user()->authorizeRoles(['user', 'admin']);
+        $judicial_id = $request->route('id');
+        return view('details');
     }
 }
