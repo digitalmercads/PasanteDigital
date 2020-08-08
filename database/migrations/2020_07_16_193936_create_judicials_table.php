@@ -22,7 +22,6 @@ class CreateJudicialsTable extends Migration
             $table->bigInteger('status');
             $table->timestamps();
 
-            
             $table->foreign('type_id')
             ->references('id')
             ->on('judicial_types')

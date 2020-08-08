@@ -28,6 +28,6 @@ class CreateJudicialTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('judicial_type');
+        Schema::dropIfExists('judicial_types');
     }
 }

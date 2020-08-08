@@ -88,6 +88,9 @@ class JudicialController extends Controller
     public function showfiles(Request $request){
         $request->user()->authorizeRoles(['user', 'admin']);
         $judicial_id = $request->route('id');
+
+
+
         return view('details');
     }
 }

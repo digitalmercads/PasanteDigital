@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title') - {{ config('app.name') }}</title>
 
@@ -29,9 +30,7 @@
     </main>
 
     @include('layouts.footer')
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script type="text/javascript">
@@ -47,6 +46,10 @@
         }
     </script>
     @yield('scripts')
+    <script>
+        document.cookie = 'same-site-cookie=foo; SameSite=Lax';
+        document.cookie = 'cross-site-cookie=bar; SameSite=None; Secure';
+    </script>
 </body>
 
 </html>

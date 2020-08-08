@@ -42,7 +42,7 @@
     <div class="col s12 m4">
         <div class="card">
             <div class="card-content">
-                <span class="card-title"><strong>Nº de Exp: {{ $judicial->judicial->name }}</strong></span>
+                <span class="card-title"><strong><small>Nº de Exp:</small> {{ $judicial->judicial->name }}</strong></span>
                 <p><strong>Actor:</strong> {{ $judicial->judicial->actor }}</p>
                 <p><strong>Juzgado:</strong> {{ $judicial->judicial->court }}</p>
                 <p><strong>Materia:</strong> {{$judicial->judicial->type->name}}</p>
@@ -54,7 +54,7 @@
                 @endisset
             </div>
             <div class="card-action">
-                <a href="{{ route('judicial') }}/{{ $judicial->judicial->id }}">Ver detalles</a>
+                <a href="{{ route('judicial_files', $judicial->judicial->id) }}">Ver detalles</a>
             </div>
         </div>
     </div>

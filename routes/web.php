@@ -20,9 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/profiles', 'ProfileController@index')->name('profiles');
-Route::get('/upload', 'FileController@index')->name('upload_file');
-Route::get('/judicial', 'JudicialController@index')->name('judicial');
-Route::get('/judicial/{id}', 'JudicialController@showfiles')->middleware('property')->name('judicial_files');
+Route::get('/expedientes', 'JudicialController@index')->name('judicial');
+Route::get('/expediente/upload', 'FileController@index')->name('upload_file');
+Route::get('/expediente/{id}', 'JudicialController@showfiles')->middleware('property')->name('judicial_files');
 
 Route::post('/add-file', 'FileController@store')->name('add_files');
-Route::post('/add-judicial', 'JudicialController@store')->name('add_judicial');
+Route::post('/add-expediente', 'JudicialController@store')->name('add_judicial');
+Route::post('ajax/judicials-list', 'DynamicDependentController@judicials')->name('judicials_list');

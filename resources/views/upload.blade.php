@@ -29,7 +29,7 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <select>
+                <select id="sel_users">
                     <option value="" disabled selected>Seleccionar usuario</option>
                     @foreach ($users as $user)
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -40,11 +40,8 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <select>
-                    <option value="" disabled selected>Seleccionar</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                <select id="sel_judicials">
+                    <option value="" selected disabled>Seleccionar</option>
                 </select>
                 <label>Expediente</label>
             </div>
@@ -59,4 +56,40 @@
     </form>
 </div>
 
+@endsection
+
+
+@section('scripts')
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            $('#sel_users').change(function () {
+                if($(this).val() !== ''){
+                    var id_user = $(this).val();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: "{{ route('judicials_list') }}",
+                        method: "POST",
+                        data:{
+                            value: id_user
+                        },
+                        success: function (result) {
+                            $('#sel_judicials').empty().append(
+                                $('<option selected disabled></option>').val('').html('Seleccionar')
+                            );
+                            $.each(result.data, function( index, value ) {
+                                $('#sel_judicials').append(
+                                    $('<option></option>').val(value.judicial.id).html(value.judicial.name)
+                                );
+                            });
+                            $('#sel_judicials').formSelect();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection
