@@ -36,13 +36,28 @@
     <div class="app-title center-align">{{ __('Expedientes') }}</div>
 </div>
 
+@if($judicials->isEmpty())
+<div class="row" style="margin-top: 16px;">
+    <div class="col s12">
+        <div class="card  light-blue accent-4">
+            <div class="card-content white-text">
+                <span class="card-title">¡Hola! Bienvenido.</span>
+                <p>Aún no has solicitado un expediente. :( </p>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+
 @isset($judicials)
 <div class="row">
     @foreach ($judicials as $judicial)
     <div class="col s12 m4">
         <div class="card">
             <div class="card-content">
-                <span class="card-title"><strong><small>Nº de Exp:</small> {{ $judicial->judicial->name }}</strong></span>
+                <span class="card-title"><strong><small>Nº de Exp:</small>
+                        {{ $judicial->judicial->name }}</strong></span>
                 <p><strong>Actor:</strong> {{ $judicial->judicial->actor }}</p>
                 <p><strong>Juzgado:</strong> {{ $judicial->judicial->court }}</p>
                 <p><strong>Materia:</strong> {{$judicial->judicial->type->name}}</p>
