@@ -26,13 +26,13 @@
 <div class="row">
     @foreach ($files as $file)
 
-    <div class="col s6 m3">
+    <div class="col s12 m3">
         <div class="card">
             <div class="card-image">
                 @if ($file->format === 'PDF')
-                <img src="{{asset('storage/pdf_default.svg')}}" height="150px">
+                <img src="{{asset('storage/pdf_default.svg')}}" max-height="150px">
                 @else
-                <img src="{{url($file->url)}}" height="150px">
+                <img src="{{url($file->url)}}" max-height="150px">
                 @endif
 
             </div>

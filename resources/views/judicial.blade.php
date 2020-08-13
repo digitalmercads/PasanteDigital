@@ -89,21 +89,14 @@
             <form method="POST" action="{{ route('add_judicial') }}" class="col s12">
                 @csrf
                 <div class="row">
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s6">
                         <input id="name" name="name" type="text" value="{{ old('name') }}" required>
-                        <label for="name">Nº Expediente</label>
+                        <label for="name">Nº Exp</label>
                         @error('name')
                         <span class="helper-text red-text">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="input-field col s12 m6">
-                        <input id="actor" name="actor" type="text" value="{{ old('actor') }}" required>
-                        <label for="actor">Nombre del Actor</label>
-                        @error('actor')
-                        <span class="helper-text red-text">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="input-field col s12">
+                    <div class="input-field col s6">
                         <input id="court" name="court" type="text" value="{{ old('court') }}" required>
                         <label for="court">Nº Juzgado</label>
                         @error('court')
@@ -111,7 +104,15 @@
                         @enderror
                     </div>
                     <div class="input-field col s12">
-                        <select id="type" name="type">
+                        <input id="actor" name="actor" type="text" value="{{ old('actor') }}" required>
+                        <label for="actor">Nombre del Actor</label>
+                        @error('actor')
+                        <span class="helper-text red-text">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col s12">
+                        <label for="type">Materia</label>
+                        <select id="type" name="type" class="browser-default">
                             <option value="" selected>Selecciona una opción</option>
                             @isset($judicialTypes)
                             @foreach ($judicialTypes as $judicialType)
@@ -119,16 +120,18 @@
                             @endforeach
                             @endisset
                         </select>
-                        <label for="type">Materia</label>
+
                         @error('type')
                         <span class="helper-text red-text">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
-                <div>
-                    <button class="btn waves-effect waves-light blue darken-1 btn-width" type="submit"
-                        name="action">Solicitar
-                    </button>
+                <div class="row">
+                    <div class="col s12 mrg-input">
+                        <button class="btn waves-effect waves-light blue darken-1 btn-width" type="submit"
+                            name="action">Solicitar
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

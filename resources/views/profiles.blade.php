@@ -42,28 +42,30 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Perfil</th>
+                    <th style="text-align: right;">Usuario / Abogado</th>
                 </tr>
             </thead>
 
             <tbody>
                 @isset($profiles)
                 @foreach ($profiles as $profile)
+                @if($profile->roles[0]->id != 1)
                 <tr>
-                    <td>{{ $profile->name }}</td>
-                    <td>{{ $profile->email }}</td>
                     <td>
-                        <select class="profile-select" id="{{ $profile->id }}">
-                            <option value="" disabled selected>Selecciona una opción</option>
-                            @foreach ($roles as $role)
-                            <option value="{{ $role->id }}"
-                                {{ $role->id === $profile->roles[0]->id ? "selected" : "" }}>{{ $role->description }}
-                            </option>
-                            @endforeach
-                        </select>
+                        {{ $profile->name }}<br><small>{{ $profile->email }}</small>
+                    </td>
+                    <td>
+                        <div class="switch secondary-content">
+                            <label>
+                                <input type="checkbox" id="{{ $profile->id }}" class="profile-switch"
+                                    value="{{$profile->roles[0]->id}}"
+                                    {{ $profile->roles[0]->id === 2 ? "checked" : "" }}>
+                                <span class="lever"></span>
+                            </label>
+                        </div>
                     </td>
                 </tr>
+                @endif
                 @endforeach
                 @endisset
             </tbody>
@@ -71,16 +73,16 @@
     </div>
 </div>
 
-
 @endsection
 
 @section('scripts')
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
-            $('.profile-select').change(function () {
+            $('.profile-switch').change(function () {
                 if($(this).val() != ''){
                     var select = $(this).attr("id");
                     var value = $(this).val();
+              
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -97,7 +97,9 @@ class JudicialController extends Controller
             'agent'
         )->first();
 
-        $files = File::where('user_id', $request->user()->id)->with(
+        $files = File::where('user_id', $request->user()->id)
+        ->where('judicial_id', $request->route('id'))
+        ->with(
             'judicial',
             'user',
             'agent'

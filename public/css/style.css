@@ -38,3 +38,16 @@ body{
 .btn-width{
     width: 100%;
 }
+
+.mrg-input{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.collection .collection-item.avatar {
+    min-height: initial !important;
+}
+
+.switch label .lever{
+    margin-right: 0 !important;
+}

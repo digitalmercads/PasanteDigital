@@ -36,9 +36,16 @@ class DynamicDependentController extends Controller
 
         if($request->ajax()){
 
+            if( $request->role_id == 2){
+                $value = 3;
+            }else{
+                $value = 2;
+            }
+
+
             $update = DB::table('role_user')
               ->where('user_id', $request->user_id)
-              ->update(['role_id' => $request->role_id]);
+              ->update(['role_id' => $value]);
 
             return response()->json(['status'=>'success','data'=>$update]);
         }

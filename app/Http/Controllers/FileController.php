@@ -107,8 +107,7 @@ class FileController extends Controller
         $FileRequest->format = $format;
 
         $FileRequest->save();
-
-        return $path;
+        return redirect()->route('upload_file')->with('status', 'Profile updated!');
     }
 
     /**

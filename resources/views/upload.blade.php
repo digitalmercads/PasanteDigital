@@ -11,6 +11,21 @@
         </div>
         @csrf
         <div class="row">
+            <div class="col s12 mrg-input">
+                <label>Usuario</label>
+                <select id="sel_users" name="user_id" class="browser-default">
+                    <option value="" disabled selected>Seleccionar usuario</option>
+                    @foreach ($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col s12 mrg-input">
+                <label>Expediente</label>
+                <select id="sel_judicials" name="judicial_id" class="browser-default">
+                    <option value="" selected disabled>Seleccionar</option>
+                </select>
+            </div>
             <div class="file-field input-field col s12">
                 <div class="btn blue-grey darken-4">
                     <span><i class="material-icons">search</i></span>
@@ -25,25 +40,6 @@
                     <i class="material-icons">error</i> <span class="helper-text red-text">{{ $message }}</span>
                 </div>
                 @enderror
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <select id="sel_users" name="user_id">
-                    <option value="" disabled selected>Seleccionar usuario</option>
-                    @foreach ($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                    @endforeach
-                </select>
-                <label>Usuario</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12">
-                <select id="sel_judicials" name="judicial_id">
-                    <option value="" selected disabled>Seleccionar</option>
-                </select>
-                <label>Expediente</label>
             </div>
         </div>
         <div class="row">
