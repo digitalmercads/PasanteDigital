@@ -27,3 +27,4 @@ Route::get('/expediente/{id}', 'JudicialController@showfiles')->middleware('prop
 Route::post('/add-file', 'FileController@store')->name('add_files');
 Route::post('/add-expediente', 'JudicialController@store')->name('add_judicial');
 Route::post('ajax/judicials-list', 'DynamicDependentController@judicials')->name('judicials_list');
+Route::post('ajax/profile_update', 'DynamicDependentController@profile')->name('profile_update');
