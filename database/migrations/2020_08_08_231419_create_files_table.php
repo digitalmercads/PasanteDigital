@@ -19,6 +19,7 @@ class CreateFilesTable extends Migration
             $table->unsignedBigInteger('agent_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('judicial_id');
+            $table->string('format');
             $table->timestamps();
 
             $table->foreign('agent_id')

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 use App\Role;
+use App\File;
+use App\JudicialRelation;
 
 class FileController extends Controller
 {
@@ -53,24 +55,58 @@ class FileController extends Controller
     public function store(Request $request)
     {
         $request->user()->authorizeRoles(['admin', 'agent']);
+        $agent_id = $request->user()->id;
 
         $validator = Validator::make($request->all(), [
             'file' => 'required|mimes:jpeg,png,jpg,pdf',
+            'user_id' => 'required',
+            'judicial_id' => 'required'
         ], $messages = [
             'file.required' => 'Selecciona un archivo.',
             'file.mimes' => 'Formato no válido. Utiliza jpg, jpeg, png o pdf.',
+            'user_id.required' => 'Selecciona un Usuario.',
+            'judicial_id.required' => 'Selecciona un Expediente.',
         ]);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
 
-        $exp = 'exp';
-        $folio = '001';
+        $judicial = JudicialRelation::where('judicial_id', $request->judicial_id)
+        ->where('user_id', $request->user_id)
+        ->with(
+            'judicial',
+            'user',
+            'agent'
+        )->first();
+        
+        $folder = 'user_'. $judicial->user_id;
+        $expediente = $judicial->judicial->name;
+
+        $count = File::where('user_id', $request->user_id)
+        ->where('judicial_id', $request->judicial_id)->count();
+
+        $folio = $count + 1;
 
         $extension = $request->file('file')->extension();
 
-        $path = Storage::putFileAs('files', $request->file('file'), $exp.'_'.$folio.'.'.$extension);
+        if($extension == 'pdf'){
+            $format = 'PDF';
+        }else{
+            $format = 'IMG';
+        }
+
+        $path = Storage::putFileAs('files/'.$folder, $request->file('file'), $expediente.'_'.$folio.'.'.$extension);
+
+        $FileRequest = new File();
+
+        $FileRequest->url = $path;
+		$FileRequest->agent_id = $agent_id;
+		$FileRequest->user_id = $request->user_id;
+        $FileRequest->judicial_id = $request->judicial_id;
+        $FileRequest->format = $format;
+
+        $FileRequest->save();
 
         return $path;
     }

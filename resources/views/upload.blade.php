@@ -29,7 +29,7 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <select id="sel_users">
+                <select id="sel_users" name="user_id">
                     <option value="" disabled selected>Seleccionar usuario</option>
                     @foreach ($users as $user)
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -40,7 +40,7 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <select id="sel_judicials">
+                <select id="sel_judicials" name="judicial_id">
                     <option value="" selected disabled>Seleccionar</option>
                 </select>
                 <label>Expediente</label>
@@ -60,8 +60,8 @@
 
 
 @section('scripts')
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
             $('#sel_users').change(function () {
                 if($(this).val() !== ''){
                     var id_user = $(this).val();
@@ -91,5 +91,5 @@
                 }
             });
         });
-    </script>
+</script>
 @endsection

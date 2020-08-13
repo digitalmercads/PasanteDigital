@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\JudicialType;
 use App\Judicial;
 use App\JudicialRelation;
+use App\File;
 
 class JudicialController extends Controller
 {
@@ -87,10 +88,21 @@ class JudicialController extends Controller
 
     public function showfiles(Request $request){
         $request->user()->authorizeRoles(['user', 'admin']);
-        $judicial_id = $request->route('id');
 
+        $data = JudicialRelation::where('user_id', $request->user()->id)
+        ->where('judicial_id', $request->route('id'))
+        ->with(
+            'judicial',
+            'user',
+            'agent'
+        )->first();
 
+        $files = File::where('user_id', $request->user()->id)->with(
+            'judicial',
+            'user',
+            'agent'
+        )->get();
 
-        return view('details');
+        return view('details', compact('files', 'data'));
     }
 }

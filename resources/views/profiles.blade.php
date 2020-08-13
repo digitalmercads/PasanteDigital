@@ -54,13 +54,14 @@
                     <td>{{ $profile->name }}</td>
                     <td>{{ $profile->email }}</td>
                     <td>
-                        <select>
+                        <select class="profile-select" id="{{ $profile->id }}">
                             <option value="" disabled selected>Selecciona una opción</option>
                             @foreach ($roles as $role)
-                            <option value="{{ $role->id }}" {{ $role->id === $profile->roles[0]->id ? "selected" : "" }}>{{ $role->description }}</option>
+                            <option value="{{ $role->id }}"
+                                {{ $role->id === $profile->roles[0]->id ? "selected" : "" }}>{{ $role->description }}
+                            </option>
                             @endforeach
                         </select>
-                        <label>Materialize Select</label>
                     </td>
                 </tr>
                 @endforeach
@@ -72,6 +73,33 @@
 
 
 @endsection
-@section('scripts')
 
+@section('scripts')
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+            $('.profile-select').change(function () {
+                if($(this).val() != ''){
+                    var select = $(this).attr("id");
+                    var value = $(this).val();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        url: "{{ route('profile_update') }}",
+                        method: "POST",
+                        data:{
+                            user_id: select,
+                            role_id: value
+                        },
+                        success: function (result) {
+                            M.toast({html: 'Datos actualizados correctamente.'})
+                        }
+                    });
+                }
+                
+            });
+        });
+</script>
 @endsection
